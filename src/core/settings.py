@@ -126,3 +126,19 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# for [2021-09-26 06:28:13,969: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//:
+# [Errno 10061] WSAECONNREFUSED.
+# BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+BROKER_URL = 'django://'
+# INSTALLED_APPS += ('kombu.transport.django', )
+
+# celery
+# app.conf.broker_url = 'redis://localhost:6379/0'
+# app.conf.result_backend = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_STORE_ERRORS_EVEN_IF_IGNORED = True
