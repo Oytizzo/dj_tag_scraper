@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 celery = {extras = ["redis"],version = "*"}
 eventlet = "*"
+django-celery-beat = "*"
 
 [requires]
 python_version = "3.8"

@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # apps
     'search_scraper',
+
+    # django-celery-beat for custom scheduler classes
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [

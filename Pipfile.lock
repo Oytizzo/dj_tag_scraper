@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d020a781c44405479c07289b0795b3d2428cc9578e36f7d8252ba336ab7f7852"
+            "sha256": "3860edecf3c0e15cee4cb627a38bc8a052cf42578ef0e9d71e3007bb7762d9f7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -82,6 +82,21 @@
             ],
             "index": "pypi",
             "version": "==3.2.7"
+        },
+        "django-celery-beat": {
+            "hashes": [
+                "sha256:97ae5eb309541551bdb07bf60cc57cadacf42a74287560ced2d2c06298620234",
+                "sha256:ab43049634fd18dc037927d7c2c7d5f67f95283a20ebbda55f42f8606412e66c"
+            ],
+            "index": "pypi",
+            "version": "==2.2.1"
+        },
+        "django-timezone-field": {
+            "hashes": [
+                "sha256:6dc782e31036a58da35b553bd00c70f112d794700025270d8a6a4c1d2e5b26c6",
+                "sha256:97780cde658daa5094ae515bb55ca97c1352928ab554041207ad515dee3fe971"
+            ],
+            "version": "==4.2.1"
         },
         "dnspython": {
             "hashes": [
@@ -166,6 +181,19 @@
                 "sha256:eb71d5a6b72ce6db177af4a7d4d7085b99756bf656d98ffcc4fecd36850eea6c"
             ],
             "version": "==3.0.20"
+        },
+        "python-crontab": {
+            "hashes": [
+                "sha256:4bbe7e720753a132ca4ca9d4094915f40e9d9dc8a807a4564007651018ce8c31"
+            ],
+            "version": "==2.5.1"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
+                "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
+            ],
+            "version": "==2.8.2"
         },
         "pytz": {
             "hashes": [
