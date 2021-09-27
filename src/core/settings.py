@@ -148,10 +148,10 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_STORE_ERRORS_EVEN_IF_IGNORED = True
 
 # celery-beat schedule
-CELERY_BEAT_SCHEDULE = {
-    'add-every-30-secs': {
-        "task": "search_scraper.tasks.add",
-        "schedule": 30.0,
-        "args": (15, 16, 5),
-    },
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'add-every-30-secs': {
+#         "task": "search_scraper.tasks.add",
+#         "schedule": 30.0,
+#         "args": (15, 16, 5),
+#     },
+# }
