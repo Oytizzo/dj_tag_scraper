@@ -12,6 +12,7 @@ eventlet = "*"
 django-celery-beat = "*"
 beautifulsoup4 = "*"
 selenium = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
