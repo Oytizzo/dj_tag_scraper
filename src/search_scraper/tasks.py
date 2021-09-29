@@ -12,6 +12,6 @@ def add(x, y, sec):
 
 @shared_task
 def task_scrape_dev_dot_to():
-    url = ""
+    url = "https://dev.to/search?q=django"
     scrape_dev_dot_to(url)
     return
