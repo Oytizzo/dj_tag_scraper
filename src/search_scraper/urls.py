@@ -6,4 +6,5 @@ app_name = 'search_scraper'
 
 urlpatterns = [
     path('', views.hello, name="hello"),
+    path('scrape_list/', views.SearchListView.as_view(), name="search-list"),
 ]

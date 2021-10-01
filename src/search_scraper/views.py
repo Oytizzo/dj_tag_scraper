@@ -12,5 +12,22 @@ def hello(request):
 
 
 class SearchListView(generic.ListView):
-    model = SearchItem
+    # model = SearchItem
     template_name = 'search_scraper/search_list.html'
+
+    def get_queryset(self):
+        qs = SearchItem.objects.all()
+
+        title = self.request.GET.get('title', None)
+        if title:
+            qs = qs.filter(title__icontains=title)
+
+        return qs.order_by("-publish_date")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        count = SearchItem.objects.all().count()
+        context.update({
+            "total_count": count
+        })
+        return context
