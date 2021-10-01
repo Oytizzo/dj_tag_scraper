@@ -1,11 +1,13 @@
-import time
-import requests
-from bs4 import BeautifulSoup
+import datetime
+from dateutil.relativedelta import relativedelta
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+
+from .models import SearchItem
 
 
 def scrape_dev_dot_to(url):
@@ -28,29 +30,54 @@ def scrape_dev_dot_to(url):
         print("Timed out waiting for page to load")
         browser.quit()
 
-    # find all the article elements
-    article_elements = browser.find_elements_by_tag_name('article')
-    for article in article_elements:
-        if article.get_attribute('data-content-user-id') != 'undefined':
-            print(article)
-            # selenium.webdriver.remote.webelement.WebElement object
-            # print(article.get_attribute('class'))
-            # crayons-story
-            article_title = article.find_element_by_tag_name('a')
-            print(article_title)
+    try:
+        # find all the article elements -> using 'article' tag
+        article_elements = browser.find_elements_by_tag_name('article')
+        for article in article_elements:
+            # check if the article exist for a user
+            if article.get_attribute('data-content-user-id') != 'undefined':
 
-            article_title_link = article_title.get_attribute('href')
-            print(article_title_link)
+                # find all the article tag -> using 'a' tag in article -> chaining the find
+                article_title = article.find_element_by_tag_name('a')
 
-            article_title_text = (article_title.get_attribute('innerHTML')).strip()
-            print(article_title_text)
-            # print(type(article_title_text))
-            # print(len(article_title_text))
+                # get the 'href' attribute from the anchor tag
+                article_title_link = article_title.get_attribute('href')
+                print(article_title_link)
 
-            article_timestamp = article.find_element_by_tag_name('time')
-            article_timestamp_text = (article_timestamp.get_attribute('innerHTML')).strip()
-            print(article_timestamp_text)
-            # print(type(article_timestamp_text))
-            # print(len(article_timestamp_text))
+                # get the title or innerHTML of the anchor tag and strip blank spaces
+                article_title_text = (article_title.get_attribute('innerHTML')).strip()
+                print(article_title_text)
 
-    print(len(article_elements))
+                # get the 'time' tag object
+                article_timestamp = article.find_element_by_tag_name('time')
+
+                # get the time str from the object and strip blank spaces
+                article_timestamp_text = (article_timestamp.get_attribute('innerHTML')).strip()
+                print(article_timestamp_text)
+
+                # convert the news_item_time into python date object
+                if "'" in article_timestamp_text:
+                    # parse the year
+                    article_date = datetime.datetime.strptime(article_timestamp_text, "%b %d '%y").date()
+
+                else:
+                    # the year is the current year
+                    article_date = datetime.datetime.strptime(article_timestamp_text, "%b %d")
+                    today = datetime.date.today()
+                    article_date = article_date.replace(year=today.year).date()
+
+                # no articles older than 2 years
+                two_years_ago = datetime.date.today() - relativedelta(years=2)
+
+                if article_date > two_years_ago:
+                    SearchItem.objects.get_or_create(
+                        title=article_title_text,
+                        link=article_title_link,
+                        source='dev.to',
+                        publish_date=article_date,
+                    )
+
+        print(len(article_elements))
+
+    except Exception as e:
+        print(e)
