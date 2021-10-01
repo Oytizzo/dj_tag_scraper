@@ -32,4 +32,24 @@ def scrape_dev_dot_to(url):
     article_elements = browser.find_elements_by_tag_name('article')
     for article in article_elements:
         print(article)
+        # selenium.webdriver.remote.webelement.WebElement object
+        # print(article.get_attribute('class'))
+        # crayons-story
+        article_title = article.find_element_by_tag_name('a')
+        print(article_title)
+
+        article_title_link = article_title.get_attribute('href')
+        print(article_title_link)
+
+        article_title_text = (article_title.get_attribute('innerHTML')).strip()
+        print(article_title_text)
+        # print(type(article_title_text))
+        # print(len(article_title_text))
+
+        article_timestamp = article.find_element_by_tag_name('time')
+        article_timestamp_text = (article_timestamp.get_attribute('innerHTML')).strip()
+        print(article_timestamp_text)
+        # print(type(article_timestamp_text))
+        # print(len(article_timestamp_text))
+
     print(len(article_elements))
