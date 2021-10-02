@@ -7,7 +7,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from .models import SearchItem
+from django.utils import timezone
+
+from .models import SearchItem, ScrapeRecord
 
 
 def scrape_dev_dot_to(url):
@@ -31,6 +33,9 @@ def scrape_dev_dot_to(url):
         browser.quit()
 
     try:
+        scrape_record = ScrapeRecord.objects.create(
+            finish_time=timezone.now()
+        )
         # find all the article elements -> using 'article' tag
         article_elements = browser.find_elements_by_tag_name('article')
         for article in article_elements:
@@ -78,6 +83,10 @@ def scrape_dev_dot_to(url):
                     )
 
         print(len(article_elements))
+
+        scrape_record.finish_time = timezone.now()
+        scrape_record.finished = True
+        scrape_record.save()
 
     except Exception as e:
         print(e)
