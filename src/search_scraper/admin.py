@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SearchItem
+from .models import SearchItem, ScrapeRecord
 
 
 class SearchItemAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class SearchItemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SearchItem, SearchItemAdmin)
+admin.site.register(ScrapeRecord)

@@ -2,13 +2,13 @@ from django.shortcuts import render
 from django.views import generic
 
 from .tasks import add
-from .models import SearchItem
+from .models import SearchItem, ScrapeRecord
 
 
-def hello(request):
-    print("Hello")
-    add.delay(100, 111, 10)
-    return render(request, 'search_scraper/hello.html', {})
+# def hello(request):
+#     print("Hello")
+#     add.delay(100, 111, 10)
+#     return render(request, 'search_scraper/hello.html', {})
 
 
 class SearchListView(generic.ListView):
@@ -31,3 +31,9 @@ class SearchListView(generic.ListView):
             "total_count": count
         })
         return context
+
+
+class ScrapeRecordListView(generic.ListView):
+    model = ScrapeRecord
+    # paginate_by = 20
+    template_name = 'search_scraper/scrape_history.html'
