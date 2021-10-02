@@ -1,9 +1,11 @@
-from django.shortcuts import render
+# from django.shortcuts import render
+# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+# from django.shortcuts import reverse
 from django.views import generic
 
-from .tasks import add
 from .models import SearchItem, ScrapeRecord
-
+# from .forms import ScrapeForm
+# from .tasks import add, task_scrape_dev_dot_to
 
 # def hello(request):
 #     print("Hello")
@@ -37,3 +39,34 @@ class ScrapeRecordListView(generic.ListView):
     model = ScrapeRecord
     # paginate_by = 20
     template_name = 'search_scraper/scrape_history.html'
+
+
+# class ScrapeRecordFormView(generic.FormView):
+#     template_name = 'search_scraper/scrape_history_form.html'
+#     form_class = ScrapeForm
+#     # success_url = '/'
+#
+#     def get_success_url(self):
+#         return reverse("search_scraper:history")
+#
+#     def form_valid(self, form):
+#         # try to get this url from the form
+#         url = "https://dev.to/search?q=django"
+#         task_scrape_dev_dot_to.delay(url)
+#         return super().form_valid(form)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         page = self.request.GET.get('page', 1)
+#         qs = ScrapeRecord.objects.all()
+#         paginator = Paginator(qs, 20)
+#         try:
+#             qs = paginator.page(page)
+#         except PageNotAnInteger:
+#             qs = paginator.page(1)
+#         except EmptyPage:
+#             qs = paginator.page(paginator.num_pages)
+#         context.update({
+#             "object_list": qs
+#         })
+#         return context
