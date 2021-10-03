@@ -24,7 +24,8 @@ class SearchListView(generic.ListView):
         if title:
             qs = qs.filter(title__icontains=title)
 
-        return qs.order_by("-publish_date")
+        # return qs.order_by("-publish_date")
+        return qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
