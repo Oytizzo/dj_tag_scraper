@@ -23,16 +23,17 @@ def scrape_dev_dot_to(url):
     timeout = 10
 
     try:
+        # for django
+        # /html/body/div[9]/div/main/div[2]/div[2]/div[2]/article[1]
+
+        # for react
+        # /html/body/div[9]/div/main/div[2]/div[2]/div[2]/article[1]
         WebDriverWait(browser, timeout).until(
             EC.visibility_of_element_located(
-                (By.XPATH, "//*[@id='article-652398']/div/div/div[1]/div/div[1]/a/img")
+                (By.XPATH, "/html/body/div[9]/div/main/div[2]/div[2]/div[2]/article[1]")
             )
         )
-    except TimeoutException:
-        print("Timed out waiting for page to load")
-        browser.quit()
 
-    try:
         scrape_record = ScrapeRecord.objects.create(
             finish_time=timezone.now()
         )
@@ -88,5 +89,10 @@ def scrape_dev_dot_to(url):
         scrape_record.finished = True
         scrape_record.save()
 
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     except Exception as e:
         print(e)
+    finally:
+        browser.quit()
